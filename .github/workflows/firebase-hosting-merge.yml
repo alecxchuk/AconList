@@ -18,3 +18,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACONLIST_B6D29 }}'
           channelId: live
           projectId: aconlist-b6d29
+env:
+  CI: false
