@@ -106,7 +106,7 @@ export default function Mock() {
           <TextField id="outlined-basic" label="Email or Phone" variant="outlined" size="medium" />
           <TextField id="outlined-password-input" label="Password (min 8 characters)" type="password" autoComplete="current-password" variant="outlined" size="medium" />
           </div>
-          <div> hello </div>
+          <div> hellos </div>
           <Button
             variant="contained"
             color="secondary"
