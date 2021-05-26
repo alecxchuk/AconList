@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
-
+import Alert from '@material-ui/lab/Alert';
+import Collapse from '@material-ui/core/Collapse';
 const useStyles = makeStyles((theme) => ({
   button: {
     //margin: theme.spacing(1),
@@ -32,10 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4)
-
-
-
-    //height: '90%',
+      //height: '90%',
   },
   padding:{
     padding:theme.spacing(2)
@@ -46,24 +44,73 @@ const useStyles = makeStyles((theme) => ({
   fontSize: {
     fontSize: 12
   },
-  root: {
 
-    //width:'100%',
+  root: {
+    width: '100%',
     '& > *': {
       //display:'block',
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
       width: '100%',
     },
-    bold: {
-      fontWeight:'bold'
-    }
-
   },
+  bold: {
+    fontWeight:'bold'
+  },
+  boot: {
+    //width: '100%',
+
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+
+
+
+    },
+  },
+  noMargin: {
+    margin:0
+  }
 }));
 
 export default function Mock() {
   const classes = useStyles();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [error, setError] = useState(null);
+
+  const [checked, setChecked] = React.useState({fullname:false, email:false,pass:false});
+
+  const onChangeHandler = event => {
+    const { name, value } = event.currentTarget;
+    if (name === "userEmail") {
+      setEmail(value);
+    } else if (name === "userPassword") {
+      setPassword(value);
+    } else if (name === "displayName") {
+      setDisplayName(value);
+    }
+  };
+  const errorTest = () => {
+    if (email === '') {
+      //console.log('e')
+      setChecked(prevState =>({
+        ...prevState,
+        email:true
+      }))
+    }
+    if (password === '') {
+      //console.log('p')
+      setChecked(prevState =>({...prevState,pass:true}))
+    }
+    if (displayName === '') {
+      //console.log('d')
+      setChecked(prevState =>({...prevState,fullname:true}))
+    }
+    console.log(checked)
+    //console.log(email)
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -102,17 +149,40 @@ export default function Mock() {
           </Typography>
 
           <div className={classes.root} noValidate autoComplete="off">
-          <TextField id="outlined-basic" label="Full name" variant="outlined" size="medium"  margin='none'/>
-          <TextField id="outlined-basic" label="Email or Phone" variant="outlined" size="medium" />
-          <TextField id="outlined-password-input" label="Password (min 8 characters)" type="password" autoComplete="current-password" variant="outlined" size="medium" />
+          <TextField
+            id="outlined-basic"
+            label="Full name" variant="outlined"
+            size="medium"  margin='none'
+            onChange={event => onChangeHandler(event)}
+          />
+          <div><Collapse in={checked.fullname}><Alert severity="error">Fullname Required!</Alert></Collapse></div>
+          <TextField
+            id="outlined-basic"
+            label="Email or Phone"
+            variant="outlined"
+            size="medium"
+            fullWidth='true'
+            onChange={event => onChangeHandler(event)}
+          />
+          <Collapse in={checked.email}><Alert  severity="error">Email or Phone Required!</Alert></Collapse>
+          <TextField
+            id="outlined-password-input"
+            label="Password (min 8 characters)"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            size="medium"
+            onChange={event => onChangeHandler(event)}
+           />
+          <Collapse in={checked.pass}><Alert  severity="error">Password Required. It must have at least 8 characters!</Alert></Collapse>
           </div>
-          <div> hello</div>
+
           <Button
             variant="contained"
             color="secondary"
             className={classes.button}
           >
-            <Typography  variant="h6">
+            <Typography  variant="h6" onClick={errorTest}>
               Sign Up
             </Typography>
           </Button>
