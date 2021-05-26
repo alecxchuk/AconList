@@ -83,33 +83,41 @@ export default function Mock() {
   const [checked, setChecked] = React.useState({fullname:false, email:false,pass:false});
 
   const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-    if (name === "userEmail") {
+    const { id, value } = event.currentTarget;
+    if (id === "userEmail") {
       setEmail(value);
-    } else if (name === "userPassword") {
+      setChecked({
+        ...checked,
+        email:false
+      })
+    } else if (id === "userPassword") {
       setPassword(value);
-    } else if (name === "displayName") {
+      setChecked({
+        ...checked,
+        pass:false
+      })
+    } else if (id === "displayName") {
       setDisplayName(value);
+      setChecked({
+        ...checked,
+        fullname:false
+      })
     }
   };
   const errorTest = () => {
     if (email === '') {
-      //console.log('e')
-      setChecked(prevState =>({
-        ...prevState,
+      setChecked({
+        ...checked,
         email:true
-      }))
+      })
     }
     if (password === '') {
-      //console.log('p')
       setChecked(prevState =>({...prevState,pass:true}))
     }
     if (displayName === '') {
-      //console.log('d')
       setChecked(prevState =>({...prevState,fullname:true}))
     }
-    console.log(checked)
-    //console.log(email)
+
   }
   return (
     <React.Fragment>
@@ -150,14 +158,14 @@ export default function Mock() {
 
           <div className={classes.root} noValidate autoComplete="off">
           <TextField
-            id="outlined-basic"
+            id="displayName"
             label="Full name" variant="outlined"
             size="medium"  margin='none'
             onChange={event => onChangeHandler(event)}
           />
           <div><Collapse in={checked.fullname}><Alert severity="error">Fullname Required!</Alert></Collapse></div>
           <TextField
-            id="outlined-basic"
+            id="userEmail"
             label="Email or Phone"
             variant="outlined"
             size="medium"
@@ -166,7 +174,7 @@ export default function Mock() {
           />
           <Collapse in={checked.email}><Alert  severity="error">Email or Phone Required!</Alert></Collapse>
           <TextField
-            id="outlined-password-input"
+            id="userPassword"
             label="Password (min 8 characters)"
             type="password"
             autoComplete="current-password"
@@ -181,8 +189,9 @@ export default function Mock() {
             variant="contained"
             color="secondary"
             className={classes.button}
+            onClick={errorTest}
           >
-            <Typography  variant="h6" onClick={errorTest}>
+            <Typography  variant="h6" >
               Sign Up
             </Typography>
           </Button>
