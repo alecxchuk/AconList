@@ -5,7 +5,8 @@ import SignUp from "./SignUp";
 import ProfilePage from "./ProfilePage";
 import PasswordReset from "./PasswordReset";
 import { UserContext } from "../../providers/UserProvider";
-import Mock from "./Mock"
+import SignInForm from "./SignInForm"
+
 export default function Application() {
 
   // Get the current value of user from UserContext.
@@ -13,14 +14,14 @@ export default function Application() {
   const user = useContext(UserContext);
 
   return (
-    <Mock />
-    /*user ?
-      <ProfilePage />
-    :
-      <Router>
-        <SignUp path="signUp" />
-        <SignIn path="/" />
-        <PasswordReset path = "passwordReset" />
-      </Router>*/
+    <SignInForm />
+    // user ?
+    //   <ProfilePage />
+    // :
+    //   <Router>
+    //     <SignUp path="signUp" />
+    //     <SignIn path="/" />
+    //     <PasswordReset path = "passwordReset" />
+    //   </Router>
   );
 }
