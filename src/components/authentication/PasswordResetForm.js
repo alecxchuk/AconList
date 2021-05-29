@@ -3,16 +3,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { FaGoogle } from 'react-icons/fa';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
 import Alert from '@material-ui/lab/Alert';
 import Collapse from '@material-ui/core/Collapse';
 import { Link } from "@reach/router";
-import { signInWithGoogle } from '../../auth/firebase';
 import { auth } from "../../auth/firebase";
 import '../styling/SignIn.css'
+
 const useStyles = makeStyles((theme) => ({
   button: {
     //margin: theme.spacing(1),
@@ -31,15 +30,11 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(4)
       //height: '90%',
   },
-  padding:{
-    padding:theme.spacing(2)
-  },
+
   paddingBottom: {
     paddingBottom:theme.spacing(2)
   },
-  fontSize: {
-    fontSize: 12
-  },
+
   root: {
     width: '100%',
     '& > *': {
@@ -49,36 +44,29 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+
   noMargin: {
     margin:0,
     padding:0
   }
 }));
 
-export default function SignUpForm() {
+export default function PasswordResetForm() {
   const classes = useStyles();
 
   // State to store email, password,
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
   const [checked, setChecked] = React.useState({email:false,pass:false});
 
+  const invalidEmail = 'Please enter a valid email address'
+  const noEmail = 'Please enter an email'
+  const noPassword = 'Please enter a password'
+  const invalidPassword = 'Password must have at least 6 characters'
+  const passwordCase = 'Password must contain lowercase and uppercase letters'
 
-  // Event handler for signing in using email and password
-  const signInWithEmailAndPasswordHandler = (event,email, password) => {
-    if ( email !== '' || password !== '' ) {
-   event.preventDefault();
-    // sign in an already registered user
-    auth.signInWithEmailAndPassword(email, password).catch(error => {
-      setError("Error signing in with password and email!");
-      console.error("Error signing in with password and email", error);
-    });
-    } else {
-      errorTest()
-    }
-  };
 
 
   // Triggered when a user inputs data into the form
@@ -95,15 +83,6 @@ export default function SignUpForm() {
         ...checked,
         email:false
       })
-    } else if (id === "userPassword") { // If the id is 'userPassword'
-      // Update the state with the user password
-      setPassword(value);
-      // Update the checked state for password to indicate the input password
-      // box is not empty
-      setChecked({
-        ...checked,
-        pass:false
-      })
     }
   };
 
@@ -118,12 +97,27 @@ export default function SignUpForm() {
         email:true
       })
     }
-    if (password === '') {
-      // Update the checked state for password to indicate the input password box
-      // is empty and display an alert message
-      setChecked(prevState =>({...prevState,pass:true}))
-    }
+
   }
+
+  //sends a reset link to the email if the user has an account
+  // If the user does not have an account with our app, this function throws an error
+  const sendResetEmail = event => {
+    if ( email !== '' ) {
+    event.preventDefault();
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setEmailHasBeenSent(true);
+        setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
+      })
+      .catch(() => {
+        setError("Error resetting password");
+      });
+    } else {
+      errorTest()
+    }
+  };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -136,29 +130,18 @@ export default function SignUpForm() {
         >
         <Paper elevation={3} >
         <Grid
-          className={classes.margin}          
+          className={classes.margin}
+          container
           direction="column"
           justify="center"
           alignItems="center">
 
           <Typography className={classes.paddingBottom}  variant="h4" align="center">
-            Sign In
+            Reset your Password
           </Typography>
 
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={classes.button}
-            startIcon={<FaGoogle size={24}/>}
-            onClick={signInWithGoogle}
-          >
-            <Typography  variant="h6">
-              Sign In with Google
-            </Typography>
-          </Button>
-
-          <Typography className={classes.padding}  variant="h6" align="center">
-            or
+          <Typography style={{width:'70%'}}className={classes.paddingBottom}  variant="body2" align='center'>
+            Enter your email address to reset your password
           </Typography>
 
           <div className={classes.root} noValidate autoComplete="off">
@@ -171,19 +154,10 @@ export default function SignUpForm() {
             onChange={event => onChangeHandler(event)}
           />
           <Collapse className={classes.noMargin} in={checked.email}><Alert  severity="error">Email or Phone Required!</Alert></Collapse>
-          <TextField
-            id="userPassword"
-            label="Password (min 8 characters)"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-            size="medium"
-            onChange={event => onChangeHandler(event)}
-           />
-          <Collapse className={classes.noMargin} in={checked.pass}><Alert  severity="error">Password Required. It must have at least 8 characters!</Alert></Collapse>
+
             <div style={{marginLeft:'auto'}} >
-            <Link to="passwordReset" className="Links">
-              Forgot Password?
+            <Link to="/" className="Links">
+              Return to sign in page?
             </Link>
             </div>
 
@@ -193,20 +167,14 @@ export default function SignUpForm() {
             variant="contained"
             color="secondary"
             className={classes.button}
-            onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
+            onClick={event => {
+              sendResetEmail(event);
+            }}
           >
             <Typography  variant="h6" >
-              Sign In
+              Reset Password
             </Typography>
           </Button>
-
-          <Typography className={classes.fontSize} variant="body2" align="center" >
-            Don't have an account? ''
-            <Link to="signUp" className="Links">
-              Sign up here
-            </Link>
-          </Typography>
-
           </Grid>
           </Paper>
         </Grid>

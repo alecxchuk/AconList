@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
 import { auth } from "../../auth/firebase";
+import PasswordResetForm from './PasswordResetForm'
 
 const PasswordReset = () => {
-  const [email, setEmail] = useState("");
+  /*const [email, setEmail] = useState("");
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
   const onChangeHandler = event => {
@@ -25,9 +26,10 @@ const PasswordReset = () => {
       .catch(() => {
         setError("Error resetting password");
       });
-  };
+  };*/
   return (
-    <div className="mt-8">
+    <PasswordResetForm />
+    /*<div className="mt-8">
       <h1 className="text-xl text-center font-bold mb-3">
         Reset your Password
       </h1>
@@ -57,6 +59,9 @@ const PasswordReset = () => {
           />
           <button
             className="w-full bg-blue-400 text-white py-3"
+            onClick={event => {
+              sendResetEmail(event);
+            }}
           >
             Send me a reset link
           </button>
@@ -68,7 +73,7 @@ const PasswordReset = () => {
           &larr; back to sign in page
         </Link>
       </div>
-    </div>
+    </div>*/
   );
 };
 export default PasswordReset;

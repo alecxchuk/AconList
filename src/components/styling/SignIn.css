@@ -1,0 +1,13 @@
+.Links {
+  text-decoration: none;
+  color:#2196f3;
+
+}
+.Links:hover {
+  text-decoration: underline;
+}
+
+.oras {
+  font-weight: bold;
+
+}

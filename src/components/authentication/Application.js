@@ -5,7 +5,7 @@ import SignUp from "./SignUp";
 import ProfilePage from "./ProfilePage";
 import PasswordReset from "./PasswordReset";
 import { UserContext } from "../../providers/UserProvider";
-import SignInForm from "./SignInForm"
+import PasswordResetForm from "./PasswordResetForm";
 
 export default function Application() {
 
@@ -14,14 +14,13 @@ export default function Application() {
   const user = useContext(UserContext);
 
   return (
-    <SignInForm />
-    // user ?
-    //   <ProfilePage />
-    // :
-    //   <Router>
-    //     <SignUp path="signUp" />
-    //     <SignIn path="/" />
-    //     <PasswordReset path = "passwordReset" />
-    //   </Router>
+    user ?
+      <ProfilePage />
+    :
+      <Router>
+        <SignUp path="signUp" />
+        <SignIn path="/" />
+        <PasswordReset path = "passwordReset" />
+      </Router>
   );
 }

@@ -1,15 +1,10 @@
 import React , { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { FaGoogle } from 'react-icons/fa';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
 import Alert from '@material-ui/lab/Alert';
@@ -17,6 +12,7 @@ import Collapse from '@material-ui/core/Collapse';
 import { Link } from "@reach/router";
 import { signInWithGoogle, generateUserDocument } from '../../auth/firebase';
 import { auth } from "../../auth/firebase";
+import '../styling/SignIn.css'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -29,21 +25,20 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none'
 
   },
-  gridWidth: {
-    width: '90%'
-  },
-  margin:{
+  gridPadding:{
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4)
       //height: '90%',
   },
-  padding:{
-    padding:theme.spacing(2)
+  or:{
+    padding:theme.spacing(2),
+    fontWeight: 'bold'
   },
-  paddingBottom: {
-    paddingBottom:theme.spacing(2)
+  signUpHeader: {
+    paddingBottom:theme.spacing(2),
+    fontWeight:'bold'
   },
   fontSize: {
     fontSize: 12
@@ -63,16 +58,13 @@ const useStyles = makeStyles((theme) => ({
   },
   boot: {
     //width: '100%',
-
     '& > * + *': {
       marginTop: theme.spacing(2),
-
-
-
     },
   },
   noMargin: {
-    margin:0
+    margin:0,
+    padding:0
   }
 }));
 
@@ -182,13 +174,13 @@ export default function SignUpForm() {
         >
         <Paper elevation={3} >
         <Grid
-          className={classes.margin}
+          className={classes.gridPadding}
           container
           direction="column"
           justify="center"
           alignItems="center">
 
-          <Typography className={classes.paddingBottom}  variant="h4" align="center">
+          <Typography className={classes.signUpHeader}  variant="h4" align="center">
             Sign Up
           </Typography>
 
@@ -204,7 +196,7 @@ export default function SignUpForm() {
             </Typography>
           </Button>
 
-          <Typography className={classes.padding}  variant="h6" align="center">
+          <Typography className={classes.or}  variant="h6" align="center">
             or
           </Typography>
 
@@ -215,7 +207,7 @@ export default function SignUpForm() {
             size="medium"  margin='none'
             onChange={event => onChangeHandler(event)}
           />
-          <div><Collapse in={checked.fullname}><Alert severity="error">Fullname Required!</Alert></Collapse></div>
+          <Collapse className={classes.noMargin} in={checked.fullname}><Alert severity="error">Fullname Required!</Alert></Collapse>
           <TextField
             id="userEmail"
             label="Email or Phone"
@@ -224,7 +216,7 @@ export default function SignUpForm() {
             fullWidth='true'
             onChange={event => onChangeHandler(event)}
           />
-          <Collapse in={checked.email}><Alert  severity="error">Email or Phone Required!</Alert></Collapse>
+          <Collapse className={classes.noMargin} in={checked.email}><Alert  severity="error">Email or Phone Required!</Alert></Collapse>
           <TextField
             id="userPassword"
             label="Password (min 8 characters)"
@@ -234,7 +226,7 @@ export default function SignUpForm() {
             size="medium"
             onChange={event => onChangeHandler(event)}
            />
-          <Collapse in={checked.pass}><Alert  severity="error">Password Required. It must have at least 8 characters!</Alert></Collapse>
+          <Collapse className={classes.noMargin} in={checked.pass}><Alert  severity="error">Password Required. It must have at least 8 characters!</Alert></Collapse>
           </div>
 
           <Button
@@ -244,7 +236,7 @@ export default function SignUpForm() {
 
             onClick={event => {
               createUserWithEmailAndPasswordHandler(event, email, password);
-              
+
             }}
           >
             <Typography  variant="h6" >
@@ -252,11 +244,11 @@ export default function SignUpForm() {
             </Typography>
           </Button>
           <Typography className={classes.fontSize} component="div"  variant="body2" color="textSecondary" align="center" >
-            By signing up, I agree to AconList's <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
+            By signing up, I agree to AconList's <a className="Links" href="">Terms of Service</a> and <a className="Links" href="">Privacy Policy</a>
           </Typography>
           <Typography className={classes.fontSize} variant="body2" align="center" >
             Already have an account? ''
-            <Link to="/" className="text-blue-500 hover:text-blue-600">
+            <Link to="/" className="Links">
               Sign in here
             </Link>
           </Typography>

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from "@reach/router";
 import { signInWithGoogle } from '../../auth/firebase';
 import { auth } from "../../auth/firebase";
+import SignInForm from "./SignInForm"
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -31,7 +32,8 @@ const SignIn = () => {
       };
 
   return (
-    <div className="mt-8">
+    <SignInForm />
+    /*<div className="mt-8">
       <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
         {error !== null && <div className = "py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>}
@@ -81,7 +83,7 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </div>*/
   );
 };
 export default SignIn;
