@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },*/
   defaultProps : {
 
-    width: '50vw',
+    minWidth: '50vw',
 
   },
   recentJobs : {
