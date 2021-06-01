@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up("xl")]: {
       backgroundColor: "blue",
+      width: '40vw'
     },
   }
 }));

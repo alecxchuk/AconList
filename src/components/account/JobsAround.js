@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
   findJobs: {
     fontWeight: 'bold'
+  },
+  title: {
+    padding: theme.spacing(1)
   }
 }));
 export default function NoJobs() {
@@ -64,6 +67,7 @@ export default function NoJobs() {
           Available Jobs Around You
         </Typography>
         <Divider  />
+        <div className={classes.title}>
         <Typography color="primary" variant="h6">
           Professional electrician needed for internal conduit wiring
         </Typography>
@@ -72,6 +76,7 @@ export default function NoJobs() {
           The job entails laying of the internal conduit pipes, wiring and
           installation of distribution boxs, lighting points and switches.
         </Typography>
+        </div>
         <Typography color='primary' className={classes.viewAll}>
           View all
         </Typography>
