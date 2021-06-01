@@ -8,19 +8,21 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button';
 import NoJobsFound from './NoJobs';
+import ViewBids from './ViewBids'
+import JobsAround from './JobsAround';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginTop: theme.spacing(1)
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-/*  border: {
-    border:
-  },*/
+
   defaultProps : {
     bgcolor: 'background.paper',
     m: 1,
@@ -37,6 +39,20 @@ const useStyles = makeStyles((theme) => ({
   viewAll : {
     padding: theme.spacing(2),
   },
+  container: {
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: theme.palette.secondary.main,
+    },
+    [theme.breakpoints.up("md")]: {
+      backgroundColor: theme.palette.primary.main,
+    },
+    [theme.breakpoints.up("lg")]: {
+      backgroundColor: "green",
+    },
+    [theme.breakpoints.up("xl")]: {
+      backgroundColor: "blue",
+    },
+  }
 }));
 
 export default function Dashboard() {
@@ -45,21 +61,29 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       <CssBaseline />
-      {/*<Container maxWidth="md">
-        <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} />
-      </Container>*/}
       <div className={classes.root}>
+        <Grid
+          direction="row"
+          container
+          justify="center"
+          >
+            <Grid
+              className={classes.container}
+              direction="column"
+              item
+              justify="center" >
+              <NoJobsFound />
+              <div style={{marginTop:8 , marginBottom: 8}}>
+              <JobsAround />
+              </div>
 
-      <Grid
-        style={{  height: '100vh' }}
-        direction="column"
-        container
-        justify="center"
-        alignItems="center"
-      >
-      <NoJobsFound />
-      
-      </Grid>
+            </Grid>
+
+            <Grid
+              justify="center" >
+              <ViewBids />
+            </Grid>
+          </Grid>
       </div>
     </React.Fragment>
   );

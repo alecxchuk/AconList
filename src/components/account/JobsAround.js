@@ -61,29 +61,17 @@ export default function NoJobs() {
     <Paper elevation={3} className={classes.jobsPaper}>
       <Grid >
         <Typography className={classes.recentJobs} variant="h6">
-          Recent Jobs
+          Available Jobs Around You
         </Typography>
-        <Divider light />
-        <Grid
-          className={classes.browse}
-          container
-          direction="column"
-          justify="center"
-          alignItems="center">
-          <SearchIcon
-            className={classes.searchIcon}
-            style={{ fontSize: 96, paddingBottom: 'theme.spacing(5)'  }}
-            color = "primary" />
-          <Typography className={classes.recentJobs}>
-            You currently do not have any job available
-          </Typography>
-          <Button variant="contained" color="primary" size="large">
-          <Typography variant="h6">
-            Find Jobs
-          </Typography>
-          </Button>
-        </Grid>
-
+        <Divider  />
+        <Typography color="primary" variant="h6">
+          Professional electrician needed for internal conduit wiring
+        </Typography>
+        <Typography  variant="body" align="justify" display="block">
+          I need a certified electrician to work on a three bedroom duplex.
+          The job entails laying of the internal conduit pipes, wiring and
+          installation of distribution boxs, lighting points and switches.
+        </Typography>
         <Typography color='primary' className={classes.viewAll}>
           View all
         </Typography>
