@@ -44,14 +44,29 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.main,
     },
     [theme.breakpoints.up("md")]: {
-      backgroundColor: theme.palette.primary.main,
+      //backgroundColor: theme.palette.primary.main,
     },
     [theme.breakpoints.up("lg")]: {
-      backgroundColor: "green",
+      //backgroundColor: "green",
+      width: '40vw'
+    },
+
+  },
+  side: {
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: theme.palette.secondary.main,
+      width:'100vw'
+    },
+    [theme.breakpoints.up("md")]: {
+      //backgroundColor: theme.palette.primary.main,
+    },
+    [theme.breakpoints.up("lg")]: {
+      //backgroundColor: "green",
+      width: '20vw'
     },
     [theme.breakpoints.up("xl")]: {
-      backgroundColor: "blue",
-      width: '40vw'
+      //backgroundColor: "blue",
+      //width: '20vw'
     },
   }
 }));
@@ -81,6 +96,7 @@ export default function Dashboard() {
             </Grid>
 
             <Grid
+              className={classes.side}
               justify="center" >
               <ViewBids />
             </Grid>
