@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   side: {
     [theme.breakpoints.down("sm")]: {
-      backgroundColor: theme.palette.secondary.main,
+      //backgroundColor: theme.palette.secondary.main,
       width:'100vw'
     },
     [theme.breakpoints.up("md")]: {
