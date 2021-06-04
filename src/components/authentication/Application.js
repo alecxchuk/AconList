@@ -6,6 +6,7 @@ import ProfilePage from "./ProfilePage";
 import PasswordReset from "./PasswordReset";
 import { UserContext } from "../../providers/UserProvider";
 import PasswordResetForm from "./PasswordResetForm";
+import CompleteProfile from "../profile/CompleteProfile"
 
 export default function Application() {
 
@@ -15,7 +16,8 @@ export default function Application() {
 
   return (
     user ?
-      <ProfilePage />
+      //<ProfilePage />
+      <CompleteProfile />
     :
       <Router>
         <SignUp path="signUp" />
